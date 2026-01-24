@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: badges
+      POSTGRES_PASSWORD: badges
+      POSTGRES_DB: badges_development
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    command: bin/rails server -b 0.0.0.0
+    volumes:
+      - .:/app
+      - bundle_cache:/usr/local/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://badges:badges@db:5432/badges_development
+      HACKCLUB_CLIENT_ID: ${HACKCLUB_CLIENT_ID}
+      HACKCLUB_CLIENT_SECRET: ${HACKCLUB_CLIENT_SECRET}
+      SECRET_KEY_BASE: development_secret_key_base_at_least_64_bytes_long_for_rails
+
+volumes:
+  postgres_data:
+  bundle_cache:
