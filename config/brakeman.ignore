@@ -1,0 +1,24 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "e22fb5658e347d310e85c9c57cedf900274967b2707b41b8b1464d0e32ce544e",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/redirects_controller.rb",
+      "line": 7,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(User.find_by(:slack_id => params[:slack_id]).redirect_url, :allow_other_host => true)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "RedirectsController",
+        "method": "show"
+      },
+      "user_input": "params[:slack_id]",
+      "confidence": "Weak",
+      "note": "URL is validated against /\\Ahttps:\\/\\/[^\\n]+\\z/i before redirect"
+    }
+  ]
+}
